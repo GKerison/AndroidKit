@@ -1,25 +1,54 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
 
     defaultConfig {
         applicationId "cn.kerison.kit.samples"
         minSdkVersion 15
-        targetSdkVersion 22
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
+
+    /**
+     * 签名设置
+     */
+    signingConfigs {
+        kerisonConfigs {
+            storeFile file("I:\\ak_private\\kerison.jks")
+            keyAlias "kerison"
+            keyPassword "aksun887"
+            storePassword "aksun887"
+        }
+    }
+
+    /**
+     * 构建类型
+     */
     buildTypes {
         release {
+            signingConfig signingConfigs.kerisonConfigs
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    /**
+     * 渠道打包（不同包名）
+     */
+    productFlavors {
+        kerison {
+            applicationId = 'cn.kerison.app'
+        }
+        xiaomi {
+            applicationId='cn.kerison.app.xiaomi'
         }
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:21.0.3'
 }
