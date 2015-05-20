@@ -1,1 +1,1 @@
-include ':app', ':logkit'
+include ':app', ':logkit', ':eventkit'

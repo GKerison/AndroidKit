@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/KitSamples.iml" filepath="$PROJECT_DIR$/KitSamples.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eventkit/eventkit.iml" filepath="$PROJECT_DIR$/eventkit/eventkit.iml" />
       <module fileurl="file://$PROJECT_DIR$/logkit/logkit.iml" filepath="$PROJECT_DIR$/logkit/logkit.iml" />
     </modules>
   </component>
