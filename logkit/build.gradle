@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "1.0.0"
+version = "2.0.1"
 
 android {
     compileSdkVersion 21
@@ -11,8 +11,8 @@ android {
     defaultConfig {
         minSdkVersion 8
         targetSdkVersion 21
-        versionCode 1
-        versionName "1.0"
+        versionCode 201
+        versionName "2.0.1"
     }
 
     buildTypes {
@@ -44,7 +44,7 @@ install {
         // This generates POM.xml with proper paramters
         pom {
             project {
-                packaging 'jar'
+                packaging 'arr'
 
                 //添加项目描述
                 name 'a kit for android to show log conveniently'
