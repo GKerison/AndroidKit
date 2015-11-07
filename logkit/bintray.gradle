@@ -1,0 +1,123 @@
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+Properties properties = new Properties()
+File localPropertiesFile = project.rootProject.file("local.properties");
+if(localPropertiesFile.exists()){
+    properties.load(localPropertiesFile.newDataInputStream())
+}
+File projectPropertiesFile = project.file("project.properties");
+if(projectPropertiesFile.exists()){
+    properties.load(projectPropertiesFile.newDataInputStream())
+}
+
+// read properties
+def PROJ_NAME = properties.getProperty("PROJ_NAME")
+def PROJ_GROUP = properties.getProperty("PROJ_GROUP")
+def PROJ_ARTIFACTID = properties.getProperty("PROJ_ARTIFACTID")
+def PROJ_VERSION = android.defaultConfig.versionName
+def PROJ_DESCRIPTION = properties.getProperty("PROJ_DESCRIPTION")
+def PROJ_PACK = properties.getProperty("PROJ_PACK")
+def PROJ_SITEURL = properties.getProperty("PROJ_SITEURL")
+def PROJ_VCSURL = properties.getProperty("PROJ_VCSURL")
+
+def DEVELOPER_ID = properties.getProperty("DEVELOPER_ID")
+def DEVELOPER_NAME = properties.getProperty("DEVELOPER_NAME")
+def DEVELOPER_EMAIL = properties.getProperty("DEVELOPER_EMAIL")
+
+def BINTRAY_USER = properties.getProperty("bintray.user")
+def BINTRAY_KEY = properties.getProperty("bintray.apikey")
+
+println(PROJ_NAME)
+println(PROJ_GROUP)
+println(PROJ_ARTIFACTID)
+println(PROJ_VERSION)
+println(PROJ_DESCRIPTION)
+println(PROJ_PACK)
+println(PROJ_SITEURL)
+println(PROJ_VCSURL)
+println(DEVELOPER_ID)
+println(DEVELOPER_NAME)
+println(DEVELOPER_EMAIL)
+println(BINTRAY_USER)
+println(BINTRAY_KEY)
+
+group = PROJ_GROUP
+version = PROJ_VERSION
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += configurations.compile
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+javadoc {
+    options{
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        author true
+        version true
+        links "http://docs.oracle.com/javase/7/docs/api"
+        title PROJ_ARTIFACTID
+    }
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging PROJ_PACK
+                name PROJ_DESCRIPTION
+                url PROJ_SITEURL
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id DEVELOPER_ID
+                        name DEVELOPER_NAME
+                        email DEVELOPER_EMAIL
+                    }
+                }
+                scm {
+                    connection PROJ_VCSURL
+                    developerConnection PROJ_VCSURL
+                    url PROJ_SITEURL
+                }
+            }
+        }
+    }
+}
+
+bintray {
+    user = BINTRAY_USER
+    key = BINTRAY_KEY
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = PROJ_NAME                // project name in jcenter
+        websiteUrl = PROJ_SITEURL
+        vcsUrl = PROJ_VCSURL
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
+}

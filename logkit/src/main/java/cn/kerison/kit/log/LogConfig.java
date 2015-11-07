@@ -1,7 +1,8 @@
 package cn.kerison.kit.log;
 
 /**
- * Created by kerison on 2015/11/6.
+ * 日志打印的配置
+ * 支持链式调用，一般采用默认就够了
  */
 public class LogConfig {
 
@@ -27,10 +28,19 @@ public class LogConfig {
         this.isShowThread = false;
     }
 
-    public void apply(){
-       LogKit.update();
+    /**
+     * 应用修改的配置
+     */
+    public void apply() {
+        LogKit.update();
     }
 
+    /**
+     * 日志的Log
+     *
+     * @param tag TAG
+     * @return 配置项本身
+     */
     public LogConfig setTag(String tag) {
         this.tag = tag;
         return this;
@@ -40,6 +50,12 @@ public class LogConfig {
         return this.tag;
     }
 
+    /**
+     * 日志输出等级 {@link cn.kerison.kit.log.LogLevel}，默认ALL
+     *
+     * @param level 日志等级
+     * @return 配置项本身
+     */
     public LogConfig setLevel(int level) {
         this.level = level;
         return this;
@@ -49,6 +65,12 @@ public class LogConfig {
         return this.level;
     }
 
+    /**
+     * 设置调用栈的个数
+     *
+     * @param count 调用栈的个数，默认1
+     * @return 配置项本身
+     */
     public LogConfig setStackCount(int count) {
         this.stackCount = count;
         return this;
@@ -58,11 +80,21 @@ public class LogConfig {
         return this.stackCount;
     }
 
+    /**
+     * 显示日志类中的包名，默认隐藏
+     *
+     * @return 配置项本身
+     */
     public LogConfig showPackage() {
         this.isShowPackage = true;
         return this;
     }
 
+    /**
+     * 隐藏日志类中的包名 ，默认隐藏
+     *
+     * @return 配置项本身
+     */
     public LogConfig hidePackage() {
         this.isShowPackage = false;
         return this;
@@ -72,11 +104,21 @@ public class LogConfig {
         return this.isShowPackage;
     }
 
+    /**
+     * 显示调用线程信息
+     *
+     * @return 配置项本身
+     */
     public LogConfig showThreadInfo() {
         this.isShowThread = true;
         return this;
     }
 
+    /**
+     * 隐藏调用线程信息
+     *
+     * @return 配置项本身
+     */
     public LogConfig hideTheadInfo() {
         this.isShowThread = false;
         return this;
@@ -86,6 +128,12 @@ public class LogConfig {
         return this.isShowThread;
     }
 
+    /**
+     * 只是默认Json/xml的输出级别 默认INFO级别
+     *
+     * @param level 显示的日志级别
+     * @return 配置项本身
+     */
     public LogConfig setTextLevel(int level) {
         this.textLevel = level;
         return this;

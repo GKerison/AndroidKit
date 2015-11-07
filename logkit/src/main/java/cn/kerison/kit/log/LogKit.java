@@ -18,7 +18,9 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 /**
- * Created by kerison on 2015/5/19.
+ * Android 日志工具
+ * <p>
+ * 支持纯文本、格式化文本、异常信息、json对象或文本、XML文本
  */
 public class LogKit {
 
@@ -32,10 +34,18 @@ public class LogKit {
     private LogKit() {
     }
 
-    public static void update(){
+    /**
+     * 更新Log配置信息
+     */
+    public static void update() {
         printer.updateConfig(config);
     }
 
+    /**
+     * 获取配置信息
+     *
+     * @return 返回配置项
+     */
     public static LogConfig config() {
         return config;
     }
@@ -112,6 +122,11 @@ public class LogKit {
         printer.wtf(Log.getStackTraceString(tr));
     }
 
+    /**
+     * 打印json对象
+     *
+     * @param jsonObject json对象
+     */
     public static void json(JSONObject jsonObject) {
 
         if (jsonObject == null) {
@@ -127,6 +142,11 @@ public class LogKit {
     }
 
 
+    /**
+     * 打印json数组
+     *
+     * @param jsonArray json数组
+     */
     public static void json(JSONArray jsonArray) {
         if (jsonArray == null) {
             printer.e("Log.json data is null");
@@ -140,9 +160,9 @@ public class LogKit {
     }
 
     /**
-     * 打印json
+     * 打印json文本信息
      *
-     * @param jsonText
+     * @param jsonText json文本
      */
     public static void json(String jsonText) {
         if (isTextEmpty(jsonText)) {
@@ -166,6 +186,11 @@ public class LogKit {
     }
 
 
+    /**
+     * 打印XML文本
+     *
+     * @param xml XML文本
+     */
     public static void xml(String xml) {
         if (isTextEmpty(xml)) {
             printer.e("LogKit.xml data is empty!");
